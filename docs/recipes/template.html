@@ -1,0 +1,64 @@
+<!--
+  Copy this file to start a new recipe: cp docs/recipes/template.html docs/recipes/my-recipe.html
+  Then add a card for it in docs/index.html.
+
+  This mirrors recipes/TEMPLATE.tex: the <table> is the grid.
+    - A rowspan="N" cell spans N rows down that column; every row it
+      covers after the first must skip that <td> entirely.
+    - A colspan="N" cell spans N columns across (used for the
+      pan-prep / oven-preheat banner rows).
+  Add or remove ingredient rows or stage columns freely -- just keep
+  each rowspan in sync with how many rows it actually covers, and
+  keep colspan equal to the total number of columns.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recipe Name</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<main>
+  <header class="recipe-header">
+    <h1>Recipe Name</h1>
+    <p class="meta">Yield<span class="sep">&bull;</span>Active time</p>
+  </header>
+
+  <div class="grid-wrap">
+    <table class="recipe-grid">
+      <tr>
+        <td class="banner" colspan="5">Prep the pan / preheat the oven</td>
+      </tr>
+      <tr>
+        <td class="ingredient">Ingredient one</td>
+        <td class="stage">melt</td>
+        <td></td>
+        <td></td>
+        <td class="stage bake" rowspan="4">bake<br>350&deg;F<br>XX min</td>
+      </tr>
+      <tr>
+        <td class="ingredient">Ingredient two</td>
+        <td></td>
+        <td class="stage" rowspan="2">mix</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="ingredient">Ingredient three</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="ingredient">Ingredient four</td>
+        <td></td>
+        <td></td>
+        <td class="stage">fold in</td>
+      </tr>
+    </table>
+  </div>
+
+  <a class="back-link" href="../index.html">&larr; All recipes</a>
+</main>
+</body>
+</html>

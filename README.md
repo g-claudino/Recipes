@@ -15,6 +15,12 @@ recipes/
   *.pdf          built output, committed alongside the source
 templates/
   recipe-matrix.sty   shared fonts, colors, page setup
+docs/
+  index.html            recipe listing, published via GitHub Pages
+  assets/style.css       shared web styling
+  recipes/*.html         one hand-written HTML grid per recipe
+  recipes/template.html  copy this to start a new recipe's web page
+  recipes/*.pdf          synced from recipes/*.pdf by `make docs`
 ```
 
 ## Writing a recipe
@@ -42,6 +48,30 @@ Shared look (green grid lines, fonts, page margins) lives in
 `recipeaccent` there to re-theme every recipe at once, or override it
 per-recipe by redefining the color after `\usepackage{recipe-matrix}`.
 
+## Writing the web version
+
+Each recipe also gets a hand-written HTML page under `docs/recipes/`
+so it renders natively (no PDF viewer) when published with GitHub
+Pages. The LaTeX `tblr` grid and the HTML `<table>` are two separate
+files describing the same layout — there's no generator between
+them, so when you add or change a recipe, update both:
+
+```bash
+cp docs/recipes/template.html docs/recipes/my-recipe.html
+```
+
+The mechanics mirror the LaTeX version directly:
+
+- **Row merge** — `<td rowspan="3">mix</td>` starts a cell spanning 3
+  rows down; every row after the first that it covers must omit that
+  `<td>` entirely.
+- **Column merge** — `<td colspan="5">...</td>` spans across all 5
+  columns, used for the pan-prep / oven-preheat banner rows.
+- Add a `<li>` card for the new recipe to [`docs/index.html`](docs/index.html).
+
+Shared web styling (green grid lines, colors, fonts, dark mode) lives
+in [`docs/assets/style.css`](docs/assets/style.css).
+
 ## Building
 
 Requires a full TeX Live install (`tabularray`, `fontspec`,
@@ -49,7 +79,7 @@ Requires a full TeX Live install (`tabularray`, `fontspec`,
 Debian/Ubuntu, bundled on most Linux desktops already).
 
 ```bash
-make               # builds every recipe in recipes/ to PDF
+make               # builds every recipe to PDF and syncs docs/recipes/*.pdf
 make watch RECIPE=brownies   # rebuild on save while editing
 make clean
 ```
@@ -57,11 +87,18 @@ make clean
 CI ([`.github/workflows/build.yml`](.github/workflows/build.yml))
 rebuilds every recipe on push/PR to catch LaTeX errors before they
 land; it does not auto-commit PDFs, so run `make` locally and commit
-the updated PDF alongside your `.tex` changes.
+the updated PDF (and its `docs/recipes/` copy) alongside your `.tex`
+changes.
 
 ## Publishing
 
-PDFs are tracked in git, so each recipe's rendered version is
-visible directly from its file page on GitHub. Push to a public repo
-and link individual recipes, e.g.
+PDFs are tracked in git, so each recipe's rendered version is also
+visible directly from its file page on GitHub, e.g.
 `https://github.com/<user>/Recipes/blob/main/recipes/brownies.pdf`.
+
+For the HTML version, push to GitHub then enable Pages: **Settings →
+Pages → Build and deployment → Deploy from a branch → `main`,
+folder `/docs`**. The site publishes at
+`https://<user>.github.io/<repo>/`, with each recipe linked from the
+index and reachable directly at
+`https://<user>.github.io/<repo>/recipes/brownies.html`.
