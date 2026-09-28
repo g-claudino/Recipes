@@ -1,0 +1,35 @@
+% Espresso Brownies -- demo recipe for the recipe-matrix format.
+% Recreates the "readable recipe" table layout: ingredients down the
+% left, prep stages across the top, merged cells show what combines
+% with what, and everything lands in one "bake" column on the right.
+\documentclass[10pt]{article}
+\usepackage{recipe-matrix}
+\pagestyle{empty}
+
+\begin{document}
+
+\recipetitle{Espresso Brownies}
+\recipemeta{Makes one 8x8-in pan \quad\textbullet\quad Active time 15 min}
+
+\begin{tblr}{
+  colspec = {X[2.6,l,m] Q[c,m,1.15cm] Q[c,m,1.3cm] Q[c,m,1.3cm] Q[c,m,1.3cm] Q[c,m,1.5cm]},
+  width = \linewidth,
+  hlines = {fg=recipeaccent, wd=0.9pt},
+  vlines = {fg=recipeaccent, wd=0.9pt},
+  rowsep = 3pt,
+  colsep = 7pt,
+}
+\SetCell[c=6]{c, font=\bfseries} Butter and flour an 8x8-in pan \\
+\SetCell[c=6]{c, font=\bfseries} Preheat oven to 350\textdegree F (170\textdegree C) \\
+4 oz (115 g) unsalted butter & \SetCell{font=\bfseries} melt & & & & \SetCell[r=9]{c,m,font=\bfseries} bake\newline 350\textdegree F (170\textdegree C)\newline 30 to 40 min \\
+1 cup (200 g) sugar & & \SetCell[r=3]{c,m,font=\bfseries} mix & & & \\
+1/4 tsp. (2.5 mL) vanilla extract & & & & & \\
+1 shot (4 Tbs; 60 mL) fresh brewed espresso or very strong coffee & & & & & \\
+2 large (100 g) eggs & & & \SetCell{font=\bfseries} mix & & \\
+1/2 cup (80 g) all-purpose flour & & & & \SetCell[r=4]{c,m,font=\bfseries} fold in & \\
+1/3 cup (80 g) Hershey's cocoa powder & & & & & \\
+1/4 tsp. (1.3 g) baking soda & & & & & \\
+1/4 tsp. (1.5 g) table salt & & & & & \\
+\end{tblr}
+
+\end{document}

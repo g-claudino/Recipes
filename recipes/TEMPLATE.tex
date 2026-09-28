@@ -1,0 +1,44 @@
+% Copy this file to start a new recipe: cp recipes/TEMPLATE.tex recipes/my-recipe.tex
+%
+% The grid is a spreadsheet: ingredients go down the left column,
+% prep stages (melt / mix / fold / bake, whatever your recipe needs)
+% go across the top, and merged cells show what combines with what.
+%
+% How merges work (tabularray's `tblr`):
+%   \SetCell[r=3]{c,m,font=\bfseries} mix   starts a cell that spans
+%   3 rows *down* in that column. Every row after the first that the
+%   merge covers must have NO entry at all for that column -- just
+%   leave it out between the &'s, e.g. `ingredient & & &` for a row
+%   whose 2nd/3rd columns are swallowed by merges above.
+%   \SetCell[c=6]{...} spans *across* 6 columns instead (used for the
+%   pan-prep / oven-preheat banner rows below).
+%
+% Add or remove columns by editing `colspec` and every row to match;
+% add or remove ingredient rows freely -- just keep merge row-counts
+% (the r=N) in sync with how many rows they actually cover.
+
+\documentclass[10pt]{article}
+\usepackage{recipe-matrix} % put this file's dir on TEXINPUTS, or `make` handles it
+\pagestyle{empty}
+
+\begin{document}
+
+\recipetitle{Recipe Name}
+\recipemeta{Yield \quad\textbullet\quad Active time}
+
+\begin{tblr}{
+  colspec = {X[2.6,l,m] Q[c,m,1.2cm] Q[c,m,1.2cm] Q[c,m,1.2cm] Q[c,m,1.5cm]},
+  width = \linewidth,
+  hlines = {fg=recipeaccent, wd=0.9pt},
+  vlines = {fg=recipeaccent, wd=0.9pt},
+  rowsep = 3pt,
+  colsep = 7pt,
+}
+\SetCell[c=5]{c, font=\bfseries} Prep the pan / preheat the oven \\
+Ingredient one & \SetCell{font=\bfseries} melt & & & \SetCell[r=4]{c,m,font=\bfseries} bake\newline 350\textdegree F\newline XX min \\
+Ingredient two & & \SetCell[r=2]{c,m,font=\bfseries} mix & & \\
+Ingredient three & & & & \\
+Ingredient four & & & \SetCell{font=\bfseries} fold in & \\
+\end{tblr}
+
+\end{document}

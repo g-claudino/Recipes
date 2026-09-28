@@ -1,0 +1,31 @@
+name: Build recipes
+
+on:
+  push:
+    paths:
+      - "recipes/**.tex"
+      - "templates/**"
+  pull_request:
+    paths:
+      - "recipes/**.tex"
+      - "templates/**"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: texlive/texlive:latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Liberation fonts
+        run: apt-get update && apt-get install -y --no-install-recommends fonts-liberation
+
+      - name: Build every recipe
+        run: make
+
+      - name: Upload built PDFs
+        uses: actions/upload-artifact@v4
+        with:
+          name: recipe-pdfs
+          path: recipes/*.pdf

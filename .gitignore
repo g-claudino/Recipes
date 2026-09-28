@@ -1,0 +1,9 @@
+# LaTeX build artifacts (PDFs are tracked -- they're the deliverable)
+*.aux
+*.log
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.out
+*.toc
+recipes/TEMPLATE.pdf

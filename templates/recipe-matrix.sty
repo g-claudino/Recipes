@@ -1,0 +1,65 @@
+% recipe-matrix.sty
+%
+% Shared styling for the "readable recipe" matrix format:
+% a spreadsheet-like table where each ingredient is a row and each
+% preparation stage (melt / mix / fold / bake ...) is a column, with
+% merged cells showing which ingredients feed into which stage.
+%
+% Usage: \usepackage{templates/recipe-matrix}  (or add templates/ to
+% TEXINPUTS) then build the grid per recipe with the tabularray
+% `tblr` environment -- see recipes/TEMPLATE.tex for the pattern.
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{recipe-matrix}[2026/09/27 recipe matrix format]
+
+\RequirePackage[margin=1.6cm]{geometry}
+\RequirePackage{xcolor}
+\RequirePackage{tabularray}
+\UseTblrLibrary{booktabs}
+\RequirePackage{fontspec}
+\RequirePackage{ragged2e}
+\RequirePackage{graphicx}
+
+% ---- palette -----------------------------------------------------
+% Override any of these with \definecolor{recipeaccent}{HTML}{...}
+% *before* loading this package if you want a different accent color.
+\providecolor{recipeaccent}{HTML}{1E8E3E} % header-image green
+\providecolor{recipetint}{HTML}{E8F5E9}   % light tint for grouped cells
+\providecolor{recipeink}{HTML}{1B1B1B}
+
+\color{recipeink}
+
+% ---- fonts ---------------------------------------------------------
+% Liberation Sans ships on virtually every Linux distro (incl. GitHub
+% Actions' ubuntu-latest via the fonts-liberation package) and is
+% metric-compatible with Arial, matching the clean sans-serif look of
+% the reference layout. Swap for any font installed on your system --
+% e.g. \setmainfont{Helvetica Neue} on macOS.
+\setmainfont{Liberation Sans}
+\let\recipesans\relax
+\newcommand{\recipesans}{}
+
+% ---- title block ---------------------------------------------------
+\newcommand{\recipetitle}[1]{%
+  {\recipesans\bfseries\Large #1}\par\smallskip
+}
+\newcommand{\recipemeta}[1]{%
+  {\recipesans\small\color{recipeink!70} #1}\par\bigskip
+}
+
+% ---- grid options ----------------------------------------------------
+% tabularray themes (\NewTblrTheme + theme=...) misbehave with X/Q
+% column specs in this TeX Live release, and macro-valued options
+% aren't expanded inside colspec parsing either -- so the shared grid
+% look is documented here as literal keys to paste into each recipe's
+% `tblr` options, rather than hidden behind a theme indirection you
+% can't easily override per-recipe anyway:
+%
+%   hlines = {fg=recipeaccent, wd=0.9pt},
+%   vlines = {fg=recipeaccent, wd=0.9pt},
+%   rowsep = 3pt,
+%   colsep = 7pt,
+%
+% See recipes/TEMPLATE.tex for a ready-to-copy grid.
+
+\endinput
