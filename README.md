@@ -83,7 +83,13 @@ The grid mechanics mirror the LaTeX version directly:
   columns, used for the pan-prep / oven-preheat banner rows.
 
 Shared web styling (colors, fonts, dark mode, per-category accents)
-lives in [`docs/assets/style.css`](docs/assets/style.css).
+lives in [`docs/assets/style.css`](docs/assets/style.css). Every page
+follows the OS light/dark preference by default, with a toggle button
+(top-right) to override it; the choice is remembered per-browser via
+`localStorage` ([`docs/assets/theme.js`](docs/assets/theme.js)). New
+pages need the `<script src="…assets/theme.js">` tag early in
+`<head>` and the `#theme-toggle` button markup right after `<body>`
+— copy both from `docs/recipes/template.html`.
 
 ### Photos
 
