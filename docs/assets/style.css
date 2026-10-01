@@ -1,21 +1,31 @@
 :root {
-  --accent: #1e8e3e;
-  --ink: #1b1b1b;
-  --ink-dim: #6b6b6b;
-  --bg: #ffffff;
-  --card-bg: #ffffff;
-  --card-border: #e3e3e3;
-  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
+  --paper: #fbf7f1;
+  --card: #ffffff;
+  --ink: #241f1a;
+  --ink-dim: #83776a;
+  --line: #e7dfd2;
+  --line-soft: #f0e9dd;
+
+  --entries: #c97c3d;
+  --entries-tint: #f4dec2;
+  --mains: #a6402f;
+  --mains-tint: #eccac0;
+  --desserts: #9c4670;
+  --desserts-tint: #efd2e1;
+
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --ink: #ececec;
-    --ink-dim: #a3a3a3;
-    --bg: #14171a;
-    --card-bg: #1b1f23;
-    --card-border: #2c3136;
+    --paper: #15130f;
+    --card: #1f1b16;
+    --ink: #f2ece2;
+    --ink-dim: #a89e8f;
+    --line: #342d24;
+    --line-soft: #241f19;
   }
 }
 
@@ -25,87 +35,224 @@
 
 body {
   margin: 0;
-  padding: 2.5rem 1.25rem 4rem;
-  background: var(--bg);
+  background: var(--paper);
   color: var(--ink);
-  font-family: var(--font);
-  line-height: 1.4;
+  font-family: var(--font-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
 main {
-  max-width: 860px;
+  max-width: 980px;
   margin: 0 auto;
+  padding: 0 1.5rem 4rem;
 }
 
 a {
-  color: var(--accent);
+  color: inherit;
 }
 
-header.page-header {
-  margin-bottom: 2rem;
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
-header.page-header h1 {
-  margin: 0 0 0.35rem;
-  font-size: 1.9rem;
+/* ---- site header / breadcrumb ---- */
+
+.site-header {
+  padding: 2.75rem 0 2rem;
 }
 
-header.page-header p {
-  margin: 0;
+.site-header .eyebrow {
+  margin: 0 0 0.6rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--ink-dim);
 }
 
-/* ---- index card grid ---- */
+.site-header h1 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(2rem, 4vw, 2.6rem);
+}
+
+.site-header p.lede {
+  margin: 0;
+  max-width: 46ch;
+  color: var(--ink-dim);
+  font-size: 1.05rem;
+}
+
+.crumbs {
+  padding: 1.75rem 0 0;
+  font-size: 0.9rem;
+  color: var(--ink-dim);
+}
+
+.crumbs a {
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+}
+
+.crumbs a:hover {
+  border-color: currentColor;
+}
+
+/* ---- category tiles (index page) ---- */
+
+.category-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+.category-tile {
+  position: relative;
+  display: block;
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  text-decoration: none;
+  color: #fff;
+  border: 1px solid var(--line);
+  transition: transform 0.18s ease;
+}
+
+.category-tile:hover {
+  transform: translateY(-3px);
+}
+
+.category-tile img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.category-tile::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.05) 55%);
+}
+
+.category-tile .tile-label {
+  position: absolute;
+  left: 1.25rem;
+  right: 1.25rem;
+  bottom: 1.1rem;
+  z-index: 1;
+}
+
+.category-tile .tile-label h2 {
+  margin: 0 0 0.2rem;
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+.category-tile .tile-label .count {
+  font-size: 0.85rem;
+  opacity: 0.88;
+}
+
+/* ---- recipe card grid (category pages) ---- */
 
 .recipe-cards {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1.5rem;
 }
 
 .recipe-cards li {
-  border: 1px solid var(--card-border);
-  border-radius: 10px;
-  background: var(--card-bg);
-  padding: 1.1rem 1.2rem;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
-.recipe-cards h2 {
-  margin: 0 0 0.3rem;
-  font-size: 1.15rem;
-}
-
-.recipe-cards h2 a {
+.recipe-cards a.card-link {
+  display: block;
   text-decoration: none;
   color: inherit;
 }
 
-.recipe-cards h2 a:hover {
-  color: var(--accent);
+.recipe-cards li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px -14px rgba(0, 0, 0, 0.35);
+}
+
+.recipe-cards .thumb {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.recipe-cards .thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.recipe-cards .card-body {
+  padding: 1rem 1.1rem 1.2rem;
+}
+
+.recipe-cards h3 {
+  margin: 0 0 0.3rem;
+  font-size: 1.1rem;
 }
 
 .recipe-cards .meta {
-  margin: 0 0 0.6rem;
+  margin: 0;
   font-size: 0.85rem;
   color: var(--ink-dim);
 }
 
-.recipe-cards .pdf-link {
-  font-size: 0.85rem;
+.empty-state {
+  border: 1px dashed var(--line);
+  border-radius: 14px;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  color: var(--ink-dim);
+}
+
+.empty-state p {
+  margin: 0;
 }
 
 /* ---- recipe page ---- */
 
+.recipe-hero {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 16 / 7;
+  margin: 1.75rem 0 1.75rem;
+}
+
+.recipe-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .recipe-header h1 {
-  margin: 0 0 0.35rem;
-  font-size: 1.7rem;
+  margin: 0 0 0.4rem;
+  font-size: clamp(1.7rem, 3.4vw, 2.3rem);
 }
 
 .recipe-header .meta {
-  margin: 0 0 1.5rem;
+  margin: 0;
   color: var(--ink-dim);
   font-size: 0.95rem;
 }
@@ -116,8 +263,9 @@ header.page-header p {
 
 .grid-wrap {
   overflow-x: auto;
-  border: 1px solid var(--accent);
-  border-radius: 4px;
+  border: 1px solid var(--cat, var(--ink));
+  border-radius: 8px;
+  margin-top: 1.5rem;
 }
 
 table.recipe-grid {
@@ -125,17 +273,20 @@ table.recipe-grid {
   width: 100%;
   min-width: 560px;
   font-size: 0.95rem;
+  background: var(--card);
 }
 
 table.recipe-grid td {
-  border: 1px solid var(--accent);
-  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--cat, var(--ink));
+  padding: 0.6rem 0.8rem;
   vertical-align: middle;
 }
 
 table.recipe-grid td.banner {
   text-align: center;
-  font-weight: 700;
+  font-weight: 600;
+  font-family: var(--font-display);
+  background: var(--line-soft);
 }
 
 table.recipe-grid td.ingredient {
@@ -144,8 +295,9 @@ table.recipe-grid td.ingredient {
 
 table.recipe-grid td.stage {
   text-align: center;
-  font-weight: 700;
+  font-weight: 600;
   white-space: nowrap;
+  color: var(--cat, var(--ink));
 }
 
 table.recipe-grid td.stage.bake {
@@ -156,13 +308,34 @@ table.recipe-grid td.stage.bake {
 .back-link {
   display: inline-block;
   margin-top: 1.75rem;
+  margin-right: 1.25rem;
   font-size: 0.9rem;
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+}
+
+.back-link:hover {
+  border-color: currentColor;
 }
 
 footer.site-footer {
-  margin-top: 3rem;
+  margin-top: 3.5rem;
   padding-top: 1.25rem;
-  border-top: 1px solid var(--card-border);
+  border-top: 1px solid var(--line);
   color: var(--ink-dim);
   font-size: 0.85rem;
+}
+
+/* ---- category accent hooks ---- */
+
+.cat-entries {
+  --cat: var(--entries);
+}
+
+.cat-mains {
+  --cat: var(--mains);
+}
+
+.cat-desserts {
+  --cat: var(--desserts);
 }

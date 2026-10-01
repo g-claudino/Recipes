@@ -16,11 +16,13 @@ recipes/
 templates/
   recipe-matrix.sty   shared fonts, colors, page setup
 docs/
-  index.html            recipe listing, published via GitHub Pages
-  assets/style.css       shared web styling
-  recipes/*.html         one hand-written HTML grid per recipe
-  recipes/template.html  copy this to start a new recipe's web page
-  recipes/*.pdf          synced from recipes/*.pdf by `make docs`
+  index.html               category landing page, published via GitHub Pages
+  categories/*.html        one page per category, listing its recipe cards
+  assets/style.css         shared web styling
+  assets/images/           recipe/category photos (placeholders until you add real ones)
+  recipes/*.html           one hand-written HTML grid per recipe
+  recipes/template.html    copy this to start a new recipe's web page
+  recipes/*.pdf            synced from recipes/*.pdf by `make docs`
 ```
 
 ## Writing a recipe
@@ -50,27 +52,50 @@ per-recipe by redefining the color after `\usepackage{recipe-matrix}`.
 
 ## Writing the web version
 
-Each recipe also gets a hand-written HTML page under `docs/recipes/`
-so it renders natively (no PDF viewer) when published with GitHub
-Pages. The LaTeX `tblr` grid and the HTML `<table>` are two separate
-files describing the same layout — there's no generator between
-them, so when you add or change a recipe, update both:
+The site is three layers: [`docs/index.html`](docs/index.html) (category
+tiles) → `docs/categories/*.html` (recipe cards per category) →
+`docs/recipes/*.html` (the recipe itself). The LaTeX `tblr` grid and
+the HTML `<table>` are two separate files describing the same
+layout — there's no generator between them, so when you add or
+change a recipe, update both.
+
+To add a new recipe:
 
 ```bash
 cp docs/recipes/template.html docs/recipes/my-recipe.html
 ```
 
-The mechanics mirror the LaTeX version directly:
+1. In the new file, set `<body class="cat-entries|cat-mains|cat-desserts">`
+   to its category — this colors the grid lines, stage labels, and
+   breadcrumb to match.
+2. Add a photo (see below).
+3. Copy the `<li class="...">` card block from
+   [`docs/categories/desserts.html`](docs/categories/desserts.html)
+   into the matching category page, pointing at your new recipe.
+4. Bump that category's `<span class="count">` on `docs/index.html`.
+
+The grid mechanics mirror the LaTeX version directly:
 
 - **Row merge** — `<td rowspan="3">mix</td>` starts a cell spanning 3
   rows down; every row after the first that it covers must omit that
   `<td>` entirely.
 - **Column merge** — `<td colspan="5">...</td>` spans across all 5
   columns, used for the pan-prep / oven-preheat banner rows.
-- Add a `<li>` card for the new recipe to [`docs/index.html`](docs/index.html).
 
-Shared web styling (green grid lines, colors, fonts, dark mode) lives
-in [`docs/assets/style.css`](docs/assets/style.css).
+Shared web styling (colors, fonts, dark mode, per-category accents)
+lives in [`docs/assets/style.css`](docs/assets/style.css).
+
+### Photos
+
+There are no real food photos in this repo yet — `docs/assets/images/placeholder-{entries,mains,desserts}.svg`
+are stand-ins so the layout looks right immediately. To add a real
+photo for a recipe:
+
+1. Drop the image in `docs/assets/images/`, e.g. `brownies.jpg`.
+2. Point the recipe page's `.recipe-hero img` and the matching
+   `<li>` card's `.thumb img` at it (`src="../assets/images/brownies.jpg"`).
+3. Any size works — `object-fit: cover` crops it to fit both the
+   hero banner and the card thumbnail.
 
 ## Building
 

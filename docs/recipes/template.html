@@ -1,8 +1,17 @@
 <!--
   Copy this file to start a new recipe: cp docs/recipes/template.html docs/recipes/my-recipe.html
-  Then add a card for it in docs/index.html.
+  Then:
+    1. Set <body class="cat-entries|cat-mains|cat-desserts"> to match the
+       category you're filing this under -- it colors the grid lines,
+       stage labels, and breadcrumb to match.
+    2. Swap the hero <img> and thumbnail src for a real photo once you
+       have one (any size -- object-fit covers it). Until then the
+       category placeholder in assets/images/ works as a stand-in.
+    3. Add a <li class="card-link"> for it to the matching category page
+       in docs/categories/, and bump that category's count on
+       docs/index.html.
 
-  This mirrors recipes/TEMPLATE.tex: the <table> is the grid.
+  The table is the grid, same mechanics as recipes/TEMPLATE.tex:
     - A rowspan="N" cell spans N rows down that column; every row it
       covers after the first must skip that <td> entirely.
     - A colspan="N" cell spans N columns across (used for the
@@ -17,13 +26,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Recipe Name</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
 </head>
-<body>
+<body class="cat-entries">
 <main>
+  <nav class="crumbs"><a href="../index.html">Recipes</a> / <a href="../categories/entries.html">Entries</a> / Recipe Name</nav>
+
+  <div class="recipe-hero">
+    <img src="../assets/images/placeholder-entries.svg" alt="Recipe Name">
+  </div>
+
   <header class="recipe-header">
     <h1>Recipe Name</h1>
-    <p class="meta">Yield<span class="sep">&bull;</span>Active time</p>
+    <p class="meta">Yield <span class="sep">&bull;</span> Active time</p>
   </header>
 
   <div class="grid-wrap">
@@ -58,7 +76,7 @@
     </table>
   </div>
 
-  <a class="back-link" href="../index.html">&larr; All recipes</a>
+  <a class="back-link" href="../categories/entries.html">&larr; Entries</a>
 </main>
 </body>
 </html>

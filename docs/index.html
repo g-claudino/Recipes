@@ -4,20 +4,46 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Recipes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 <main>
-  <header class="page-header">
+  <header class="site-header">
+    <p class="eyebrow">Home cooking, written down properly</p>
     <h1>Recipes</h1>
-    <p>Ingredients down the left, prep stages across the top &mdash; merged cells show what combines with what.</p>
+    <p class="lede">Ingredients down the left, prep stages across the top — every grid shows exactly what combines with what. Pick a category to start.</p>
   </header>
 
-  <ul class="recipe-cards">
+  <ul class="category-grid">
     <li>
-      <h2><a href="recipes/brownies.html">Espresso Brownies</a></h2>
-      <p class="meta">Makes one 8x8-in pan &bull; 15 min active</p>
-      <p class="pdf-link"><a href="recipes/brownies.pdf">PDF</a></p>
+      <a class="category-tile" href="categories/entries.html">
+        <img src="assets/images/placeholder-entries.svg" alt="">
+        <span class="tile-label">
+          <h2>Entries</h2>
+          <span class="count">0 recipes</span>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a class="category-tile" href="categories/main-dishes.html">
+        <img src="assets/images/placeholder-mains.svg" alt="">
+        <span class="tile-label">
+          <h2>Main dishes</h2>
+          <span class="count">0 recipes</span>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a class="category-tile" href="categories/desserts.html">
+        <img src="assets/images/placeholder-desserts.svg" alt="">
+        <span class="tile-label">
+          <h2>Desserts</h2>
+          <span class="count">1 recipe</span>
+        </span>
+      </a>
     </li>
   </ul>
 
