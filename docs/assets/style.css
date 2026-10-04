@@ -359,13 +359,162 @@ footer.site-footer {
   --cat: var(--desserts);
 }
 
+/* ---- site nav ---- */
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.5rem;
+  padding: 0.85rem 1.5rem;
+  background: var(--card);
+  border-bottom: 1px solid var(--line);
+}
+
+.site-nav .brand {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  text-decoration: none;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.site-nav .nav-links {
+  display: flex;
+  gap: 1.1rem;
+  flex-wrap: wrap;
+}
+
+.site-nav .nav-links a {
+  text-decoration: none;
+  color: var(--ink-dim);
+  font-size: 0.92rem;
+}
+
+.site-nav .nav-links a:hover {
+  color: var(--ink);
+}
+
+.site-nav .nav-search {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.site-nav .nav-search input[type="search"] {
+  font: inherit;
+  font-size: 0.88rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  width: 200px;
+  max-width: 40vw;
+}
+
+.site-nav .nav-search input[type="search"]:focus {
+  outline: 2px solid var(--cat, var(--ink-dim));
+  outline-offset: 1px;
+}
+
+.site-nav .nav-search button {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink-dim);
+  cursor: pointer;
+}
+
+.site-nav .nav-search button:hover {
+  color: var(--ink);
+  background: var(--line-soft);
+}
+
+.site-nav .nav-search button svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ---- category + search filter bar (index page) ---- */
+
+.all-recipes {
+  margin-top: 3rem;
+}
+
+.all-recipes h2 {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+}
+
+.filter-bar {
+  margin-bottom: 1.5rem;
+}
+
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.chip {
+  font: inherit;
+  font-size: 0.88rem;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink-dim);
+  cursor: pointer;
+}
+
+.chip:hover {
+  color: var(--ink);
+}
+
+.chip.is-active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+/* ---- pairing ---- */
+
+.pairing {
+  margin-top: 2rem;
+  padding: 1.25rem 1.4rem;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--cat, var(--ink));
+  border-radius: 10px;
+}
+
+.pairing h2 {
+  margin: 0 0 0.4rem;
+  font-size: 1.1rem;
+}
+
+.pairing p {
+  margin: 0;
+  color: var(--ink-dim);
+}
+
 /* ---- theme toggle ---- */
 
 .theme-toggle {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  z-index: 20;
+  flex: none;
   width: 38px;
   height: 38px;
   padding: 0;

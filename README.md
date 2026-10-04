@@ -16,9 +16,12 @@ recipes/
 templates/
   recipe-matrix.sty   shared fonts, colors, page setup
 docs/
-  index.html               category landing page, published via GitHub Pages
+  index.html               nav + category tiles + the "All recipes" search/filter grid
   categories/*.html        one page per category, listing its recipe cards
   assets/style.css         shared web styling
+  assets/theme.js          light/dark toggle logic
+  assets/search.js         powers the nav search box + category chips on index.html
+  assets/recipes.json      search index: one entry per recipe (title, category, ingredients, ...)
   assets/images/           recipe/category photos (placeholders until you add real ones)
   recipes/*.html           one hand-written HTML grid per recipe
   recipes/template.html    copy this to start a new recipe's web page
@@ -73,6 +76,12 @@ cp docs/recipes/template.html docs/recipes/my-recipe.html
    [`docs/categories/desserts.html`](docs/categories/desserts.html)
    into the matching category page, pointing at your new recipe.
 4. Bump that category's `<span class="count">` on `docs/index.html`.
+5. Add an entry to [`docs/assets/recipes.json`](docs/assets/recipes.json)
+   (same `slug`/`title`/`category`/`meta`/`photo`/`url` fields as the
+   existing one, plus an `ingredients` array of plain-text lines) so
+   the recipe shows up in nav search and the "All recipes" filter.
+6. Fill in (or delete) the `.pairing` section near the bottom of the
+   recipe page with a real drink/side suggestion.
 
 The grid mechanics mirror the LaTeX version directly:
 
@@ -90,6 +99,32 @@ follows the OS light/dark preference by default, with a toggle button
 pages need the `<script src="…assets/theme.js">` tag early in
 `<head>` and the `#theme-toggle` button markup right after `<body>`
 — copy both from `docs/recipes/template.html`.
+
+### Navigation and search
+
+Every page shares the same `<nav class="site-nav">` bar: a brand
+link back to `index.html`, links to each category, an "All recipes"
+link, a search box, and the theme toggle. Copy it (and the matching
+`<nav class="crumbs">` breadcrumb below it) from
+`docs/recipes/template.html` when adding a page — paths are relative,
+so `../` prefixes change depending on how deep the new file lives.
+
+Search only *runs* on `index.html` ([`docs/assets/search.js`](docs/assets/search.js)):
+the nav search form on every other page is a plain HTML GET form
+that submits `?q=...` to `index.html`, which then does the actual
+filtering — no JavaScript needed to get there. On `index.html`,
+`search.js` fetches `recipes.json`, matches the query against each
+recipe's title and ingredients (case-insensitive substring), and
+combines it with whichever category chip is active. Typing
+live-filters and updates the URL (`?q=...&cat=...`) so results are
+shareable and survive a reload.
+
+### Pairing
+
+Each recipe page has a `.pairing` section after the grid — a short
+note on what to drink or serve alongside the dish ("harmonização" /
+wine-and-food pairing). It's a plain paragraph you edit by hand, no
+special markup.
 
 ### Photos
 

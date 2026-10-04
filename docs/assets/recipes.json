@@ -1,0 +1,23 @@
+[
+  {
+    "slug": "brownies",
+    "title": "Espresso Brownies",
+    "category": "desserts",
+    "categoryLabel": "Desserts",
+    "meta": "Makes one 8x8-in pan • 15 min active",
+    "photo": "assets/images/placeholder-desserts.svg",
+    "url": "recipes/brownies.html",
+    "ingredients": [
+      "unsalted butter",
+      "sugar",
+      "vanilla extract",
+      "espresso",
+      "strong coffee",
+      "eggs",
+      "all-purpose flour",
+      "cocoa powder",
+      "baking soda",
+      "table salt"
+    ]
+  }
+]
